@@ -15,53 +15,35 @@ var ctx = canvas.getContext("2d");
 var debug = document.getElementById("debug");
 debug.width = size.width;
 debug.height = size.height;
-//canvas.backgroundColor = null;
 debug.position = "absolute";
 var dctx = debug.getContext("2d");
 
-document.documentElement.style.overflow = 'hidden';
+//document.documentElement.style.overflow = 'hidden';
 
 
 // LOAD ASSETS
 
 var queue = new createjs.LoadQueue(true);
 queue.installPlugin(createjs.Sound);
-queue.addEventListener("complete", handleComplete);
+queue.addEventListener("complete", init );
+queue.addEventListener("progress", updateLoading);
 queue.loadManifest([
     {src:"../flight_test/images/ship.png", id:"ship"},
     {src:"../flight_test/images/soldier.png", id:"soldier"},
     {src:"../maps/tmw_desert_spacing.png", id:"map1"}
 ]);
-
-function handleComplete(event){
-    console.log("handleComplete: ", event);
-    init();
-} // handleComplete(event)
-
-
-// NAMESPACE Setup: Create a convenience namespace for box2d objects
-var box2d = {
-    b2Vec2 : Box2D.Common.Math.b2Vec2,
-    b2AABB : Box2D.Collision.b2AABB,
-    b2BodyDef : Box2D.Dynamics.b2BodyDef,
-    b2Body : Box2D.Dynamics.b2Body,
-    b2FixtureDef : Box2D.Dynamics.b2FixtureDef,
-    b2Fixture : Box2D.Dynamics.b2Fixture,
-    b2World : Box2D.Dynamics.b2World,
-    b2PolygonShape : Box2D.Collision.Shapes.b2PolygonShape,
-    b2CircleShape : Box2D.Collision.Shapes.b2CircleShape,
-    b2DebugDraw : Box2D.Dynamics.b2DebugDraw,
-    b2ContactListener : Box2D.Dynamics.b2ContactListener
-};
-
-var CAT = {
-    GROUND :    0x0001,
-    SOLDIER :   0x0010,
-    SHIP :      0x0100,
-    SOLDIER_FOOT_SENSOR :   0x1000,
-    EXHAUST :   0x0004,
-    BACKGROUND : 0x0040,
+ctx.fillStyle="#000";
+ctx.fillRect(100,100,300,30)
+ctx.textBaseline = "bottom";
+ctx.font = "bold 40px sans-serif";
+ctx.fillStyle="#5BF";
+ctx.fillText("Loading", 120, 100);
+function updateLoading(event){
+    ctx.fillRect(100,100,300*event.progress,30);
 }
+
+
+
 
 
 // GLOBAL Variables
@@ -80,7 +62,7 @@ var listener = new box2d.b2ContactListener();
 
     
 function init(){
-    stage = new createjs.Stage(document.getElementById("canvas"));
+    stage = new createjs.Stage("canvas");
     debug = document.getElementById("debug");
 
     setupPhysics();
