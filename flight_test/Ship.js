@@ -1,47 +1,51 @@
 (function () {
     
 	this.Ship = function() {
-        console.log("birthing", this);
-        // Image
+        // Createjs Shape
         this.view = new createjs.Bitmap(queue.getResult("ship"));
+        
         this.view.set({
             regX : 70 / 2,
             regY : 136 / 2,
-            onTick : tick
+            onTick : tick,
+            body : createBox2DBody()
         });
-        
-        // Box2D body
-        var fixDef = new box2d.b2FixtureDef();
-        fixDef.density = 100.;
-        fixDef.friction = 0.6;
-        fixDef.restitution = 0.0;
+	}
+    
+
+    function createBox2DBody() {
         var bodyDef = new box2d.b2BodyDef();
         bodyDef.type = box2d.b2Body.b2_dynamicBody;
         bodyDef.angle = 0;
         bodyDef.angularDamping = 0.2;
-        bodyDef.position.Set( 1000/SCALE, 1470/SCALE); //canvas.height / 2 / SCALE;
+        bodyDef.position.Set( 1000/SCALE, 1470/SCALE); // World coordinates
         bodyDef.userData = "Ship";
-        this.view.body = world.CreateBody(bodyDef);
+        var body = world.CreateBody(bodyDef);
         
+        var fixDef = new box2d.b2FixtureDef();
+        fixDef.density = 100.;
+        fixDef.friction = 0.6;
+        fixDef.restitution = 0.0;
         fixDef.shape = new box2d.b2PolygonShape;
         fixDef.shape.SetAsBox((70 / 2 / SCALE), (136 / 2 / SCALE));
         fixDef.filter.categoryBits = CAT.SHIP;
         fixDef.filter.maskBits = CAT.GROUND | CAT.SOLDIER_FOOT_SENSOR;
         fixDef.userData = "Ship";
-        this.view.body.CreateFixture(fixDef);
-        
-        console.log("afterbirth",this);
-	}
+        body.CreateFixture(fixDef);
+    
+        return body;
+    }
 
-
+    
     var thrust_increment = 80;
+    
 	function tick(event) {
-        //console.log("ticking", this);
+    
         // CONTROLS
         if (controlFocus == this) {
             var angle = this.body.GetAngle();
-            if (keys[38] | keys[104]){
-                //console.log("up pulse. angle=", angle);
+            // FORWARD PULSE
+            if (keys[K.UP] | keys[K.EIGHT]){
                 this.body.ApplyImpulse(new box2d.b2Vec2(
                                         Math.cos(angle+Math.PI/2) * -thrust_increment,
                                         Math.sin(angle+Math.PI/2) * -thrust_increment),
@@ -49,60 +53,52 @@
                                      );
                 new Exhaust(0,50,3,this.body.GetAngle(),10,10);
             }
-            if (keys[37] | keys[100]){
-                //console.log("left transverse pulse");
+            // LEFT PULSE
+            if (keys[K.LEFT] | keys[K.FOUR]){
                 this.body.ApplyImpulse(new box2d.b2Vec2(
                                         Math.cos(angle) * -thrust_increment,
                                         Math.sin(angle) * -thrust_increment), this.body.GetWorldCenter());
                 new Exhaust(39,17,3,this.body.GetAngle()-Math.PI/2,10,10);
                 new Exhaust(20,-38,3,this.body.GetAngle()-Math.PI/2,10,10);
             }
-            if (keys[103]){
-                //console.log("left pulse");
+            // COUNTER-CLOCKWISE ROTATION
+            if (keys[K.SEVEN]){ // CCW Rotation
                 this.body.ApplyTorque( -20*thrust_increment );
                 new Exhaust(20,-38,3,this.body.GetAngle()-Math.PI/2,10,10);
             }
-            if (keys[99]){
-                //console.log("left pulse");
+            if (keys[K.THREE]){ // CCW Rotation
                 this.body.ApplyTorque( -20*thrust_increment );
                 new Exhaust(-39,17,3,this.body.GetAngle()+Math.PI/2,10,10);
             }
-            if (keys[39] | keys[102]){
-                //console.log("right transverse pulse");
+            // RIGHT PULSE
+            if (keys[K.RIGHT] | keys[K.SIX]){ // Move right
                 this.body.ApplyImpulse(new box2d.b2Vec2(
                                         Math.cos(angle) * thrust_increment,
                                         Math.sin(angle) * thrust_increment), this.body.GetWorldCenter());
                 new Exhaust(-39,17,3,this.body.GetAngle()+Math.PI/2,10,10);
                 new Exhaust(-20,-38,3,this.body.GetAngle()+Math.PI/2,10,10);
             }
-            if (keys[105]){
-                //console.log("right pulse");
+            // CLOCKWISE ROTATION
+            if (keys[K.NINE]){ // CW Rotation
                 this.body.ApplyTorque( 20*thrust_increment );
                 new Exhaust(-20,-38,3,this.body.GetAngle()+Math.PI/2,10,10);
             }
-            if (keys[97]){
-                //console.log("right pulse");
+            if (keys[K.ONE]){ // CW Rotation
                 this.body.ApplyTorque( 20*thrust_increment );
                 new Exhaust(39,17,3,this.body.GetAngle()-Math.PI/2,10,10);
             }
-            if (keys[40] | keys[101]){
-                //console.log("reverse pulse");
+            // REVERSE PULSE
+            if (keys[K.DOWN] | keys[K.FIVE]){ 
                 this.body.ApplyImpulse(new box2d.b2Vec2(
                                         Math.cos(angle+Math.PI/2) * thrust_increment,
                                         Math.sin(angle+Math.PI/2) * thrust_increment), this.body.GetWorldCenter());
                 new Exhaust(0,-57,3,this.body.GetAngle()+Math.PI,10,10);
             }
-            if (keys[98]){
-                //console.log("Stop main engines");
-                thrust = 0.0;
-            }
-            if (keys[107]){
-                thrust += thrust_increment;
-            }
-            if (keys[109]){
-                thrust -= thrust_increment;
-                if (thrust < 0) thrust = 0;
-            }
+            // MAIN ENGINE CONTROLS
+            if (keys[K.TWO])   thrust = 0.0;
+            if (keys[K.PLUS])  thrust += thrust_increment;
+            if (keys[K.MINUS]) thrust -= thrust_increment;
+            if (thrust < 0) thrust = 0;
         } // CONTROLS
         
         

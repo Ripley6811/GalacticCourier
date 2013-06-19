@@ -1,6 +1,6 @@
-(function (window) {
+(function () {
 
-	function Exhaust(posx,posy,speed,vangle,width, ageMax) {
+	window.Exhaust = function(posx,posy,speed,vangle,width, ageMax) {
         var radius = 8;
         this.view = new createjs.Shape();
         //this.view.shadow = new createjs.Shadow("#ccc", 3, 3, 50);
@@ -67,5 +67,4 @@
         //this.rotation = this.body.GetAngle() * (180/Math.PI);
     } // tick()
 
-    window.Exhaust = Exhaust;
-}(window));
+}());

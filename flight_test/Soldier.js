@@ -59,8 +59,6 @@
         fixDef.filter.categoryBits = CAT.SOLDIER_FOOT_SENSOR;
         fixDef.filter.maskBits = CAT.SHIP | CAT.GROUND;
         this.view.body.CreateFixture(fixDef);
-        
-        console.log(this.view.body.GetFixtureList());
 	}
 
     
