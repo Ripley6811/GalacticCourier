@@ -13,6 +13,7 @@ game_scripts = [
 #    "http://code.createjs.com/preloadjs-0.3.1.min.js",
     "packages/preloadjs-0.3.1.min.js",
     "packages/Box2dWeb-2.1.a.3.min.js",
+    "flight_test/namespaces.js",
     "flight_test/Ship.js",
     "flight_test/Soldier.js",
     "flight_test/Exhaust.js",
@@ -29,6 +30,8 @@ game_canvas = [
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         self.response.out.write(render_template("base.html", hello="Wow", client_ID=CLIENT_ID))
+
+        self.redirect('/gamemain')
 
 #class GLogin(webapp2.RequestHandler):
 #    def get(self, user_name = ''):
