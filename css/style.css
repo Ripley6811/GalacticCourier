@@ -1,0 +1,14 @@
+
+body {
+margin:0px;
+padding:0px;
+}
+
+#canvas {
+background-color: #ddf;
+position: absolute;
+}
+
+#debug {
+position: absolute;
+}
