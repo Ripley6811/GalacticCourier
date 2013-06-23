@@ -12,14 +12,21 @@ handlers:
 - url: /css
   static_dir: css
 
-- url: /flight_test
-  static_dir: flight_test
+- url: /main
+  static_dir: src/main
   
-- url: /packages
-  static_dir: packages
+- url: /thirdpartylibraries
+  static_dir: src/thirdpartylibraries
+  
+- url: /setup
+  static_dir: src/setup
   
 - url: /maps
-  static_dir: maps
+  static_dir: src/maps
+  
+- url: /classes
+  static_dir: src/classes
+  
   
 - url: .*
   script: main.app

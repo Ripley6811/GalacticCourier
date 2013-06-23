@@ -1,26 +1,19 @@
 #!/usr/bin/env python
 
-
+import os
 import logging
 import webapp2
 from template_manager import render_template
 
 CLIENT_ID = "907844683646-eto8g1ervbr3fc84a67csbmpg5oe9e37.apps.googleusercontent.com"
 
-game_scripts = [
-#    "http://code.createjs.com/easeljs-0.6.1.min.js",
-    "packages/easeljs-0.6.1.min.js",
-#    "http://code.createjs.com/preloadjs-0.3.1.min.js",
-    "packages/preloadjs-0.3.1.min.js",
-    "packages/Box2dWeb-2.1.a.3.min.js",
-    "flight_test/namespaces.js",
-    "flight_test/Ship.js",
-    "flight_test/Soldier.js",
-    "flight_test/Exhaust.js",
-    "flight_test/Earth.js",
-    "maps/testmap.js",
-    "flight_test/Tile.js",
-    "flight_test/flight_test.js"
+# Load javascript files from these folders in this order. Ends with main program
+game_folders = [
+    "thirdpartylibraries",
+    "setup",
+    "maps",
+    "classes",
+    "main",
 ]
 game_canvas = [
     "canvas",
@@ -30,7 +23,6 @@ game_canvas = [
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         self.response.out.write(render_template("base.html", hello="Wow", client_ID=CLIENT_ID))
-
         self.redirect('/gamemain')
 
 #class GLogin(webapp2.RequestHandler):
@@ -52,6 +44,12 @@ class MainHandler(webapp2.RequestHandler):
 
 class GameHandler(webapp2.RequestHandler):
     def get(self):
+        game_scripts = []
+        game_path = os.path.join(os.path.dirname(__file__), "src")
+        for folder in game_folders:
+            for f in os.listdir(os.path.join(game_path, folder)):
+                if f.endswith("js"):
+                    game_scripts.append(os.path.join( folder, f ))
         self.response.out.write(render_template("base.html", scripts=game_scripts, canvas=game_canvas))
 
 

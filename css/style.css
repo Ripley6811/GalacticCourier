@@ -5,10 +5,8 @@ padding:0px;
 }
 
 #canvas {
-background-color: #ddf;
-position: absolute;
+background-color: #ccf;
 }
 
 #debug {
-position: absolute;
 }
