@@ -41,4 +41,6 @@ var CAT = {
     SOLDIER_FOOT_SENSOR :   0x1000,
     EXHAUST :   0x0004,
     BACKGROUND : 0x0040,
+    STATION :   0x0400,
+    ROVER :     0x4000
 }

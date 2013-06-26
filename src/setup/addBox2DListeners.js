@@ -4,55 +4,44 @@ function addBox2DListeners() {
     
     
     listener.PreSolve = function(contact, manifold){
-        var fixtures = [];
-        fixtures.push( contact.GetFixtureA().GetUserData() );
-        fixtures.push( contact.GetFixtureB().GetUserData() );
-        
-        if (fixtures[0] == "SBody" || fixtures[1] == "SBody"){
-            //console.log( "SBody:", manifold.m_points[0].m_normalImpulse );
-        }
+    }
+    listener.PostSolve = function(contact, manifold){
     }
     listener.BeginContact = function(contact){
-        var fixtures = [];
-        fixtures.push( contact.GetFixtureA().GetUserData() );
-        fixtures.push( contact.GetFixtureB().GetUserData() );
+        var fixtures = [
+            contact.GetFixtureA().GetUserData(),
+            contact.GetFixtureB().GetUserData()
+        ];
+        if (fixtures[1] == "Foot"){
+            fixtures.reverse();
+        }
         
         //console.log("BEGIN: " + fixtures);
-        if (fixtures[0] == "Foot" || fixtures[1] == "Foot") {
-            if (fixtures[0] == "Tile" || fixtures[1] == "Tile"){
+        if (fixtures[0] == "Foot" && fixtures[1] == "Tile"){
                 soldier.isGrounded++;
-                //console.log("<grounded> " + soldier.isGrounded);
-            }
         }
-        if (fixtures[0] == "Foot" || fixtures[1] == "Foot") {
-            if (fixtures[0] == "Ship" || fixtures[1] == "Ship"){
-                soldier.canEmbark++;
-            }
-        }
+        if (fixtures[0] == "Foot" && fixtures[1] == "Ship") soldier.canEmbark = "Ship";
+        if (fixtures[0] == "Foot" && fixtures[1] == "Rover") soldier.canEmbark = "Rover";
+        
         
     }
     listener.EndContact = function(contact){
-        var fixtures = [];
-        fixtures.push( contact.GetFixtureA().GetUserData() );
-        fixtures.push( contact.GetFixtureB().GetUserData() );
+        var fixtures = [
+            contact.GetFixtureA().GetUserData(),
+            contact.GetFixtureB().GetUserData()
+        ];
+        if (fixtures[1] == "Foot"){
+            fixtures.reverse();
+        }
         
         //console.log("END: " + fixtures);
-        if (fixtures[0] == "Foot" || fixtures[1] == "Foot") {
-            if (fixtures[0] == "Tile" || fixtures[1] == "Tile"){
+        if (fixtures[0] == "Foot" && fixtures[1] == "Tile"){
                 soldier.isGrounded--;
-            }
         }
-        if (fixtures[0] == "Foot" || fixtures[1] == "Foot") {
-            if (fixtures[0] == "Ship" || fixtures[1] == "Ship"){
-                soldier.canEmbark--;
-            }
-        }
+        if (fixtures[0] == "Foot" && fixtures[1] == "Ship") soldier.canEmbark = null;
+        if (fixtures[0] == "Foot" && fixtures[1] == "Rover") soldier.canEmbark = null;
         
     }
-
-   /* listener.EndContact = function(contact) {
-        console.log(contact.GetFixtureA().GetBody().GetUserData());
-    }*/
 
     world.SetContactListener(listener);
 

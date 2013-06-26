@@ -4,7 +4,7 @@
     */
 	this.Ship = function() {
         // Createjs Shape
-        view = new createjs.Bitmap(queue.getResult("ship"));
+        var view = new createjs.Bitmap(queue.getResult("ship"));
         view.set({
             // Set the "center" of this object
             regX : 70 / 2,
@@ -30,7 +30,7 @@
         bodyDef.type = box2d.b2Body.b2_dynamicBody;
         bodyDef.angle = 0;
         bodyDef.angularDamping = 0.2;
-        bodyDef.position.Set( 1000/SCALE, 1470/SCALE); // World coordinates
+        bodyDef.position.Set( 3182/SCALE, 2236/SCALE); // World coordinates
         bodyDef.userData = "Ship";
         var body = world.CreateBody(bodyDef);
         /*
@@ -45,6 +45,7 @@
         fixDef.userData = "Ship";
         body.CreateFixture(fixDef);
         */
+        //Main ship body
         var Vec2 = box2d.b2Vec2;
         var fixDef = new box2d.b2FixtureDef();
         fixDef.density = 100.;
@@ -60,11 +61,11 @@
         ];
         fixDef.shape.SetAsArray(vertices, 5);
         fixDef.filter.categoryBits = CAT.SHIP;
-        fixDef.filter.maskBits = CAT.GROUND | CAT.SOLDIER_FOOT_SENSOR;
+        fixDef.filter.maskBits = CAT.GROUND | CAT.SOLDIER_FOOT_SENSOR | CAT.STATION;
         fixDef.userData = "Ship";
         body.CreateFixture(fixDef);
         
-        
+        //Right engine
         fixDef.shape = new box2d.b2PolygonShape;
         var vertices = [
             new Vec2(22/SCALE, 18/SCALE),
@@ -75,6 +76,7 @@
         fixDef.shape.SetAsArray(vertices, 4);
         body.CreateFixture(fixDef);
         
+        //Left engine
         fixDef.shape = new box2d.b2PolygonShape;
         var vertices = [
             new Vec2(-12/SCALE, 67/SCALE),
@@ -85,7 +87,6 @@
         fixDef.shape.SetAsArray(vertices, 4);
         body.CreateFixture(fixDef);
         
-    
         return body;
     }
 
@@ -172,6 +173,14 @@
         } 
         
         deleteExhaust();
+        
+        
+        if (this.bodyY() < 0) {
+            //When high enough, cancel out gravity
+            this.body.ApplyForce(new box2d.b2Vec2(0,-10*this.body.GetMass()),
+                         this.body.GetWorldCenter()
+                         );
+        }
         
         // Update the image position by the box2d physics body position
         this.x = this.bodyX();

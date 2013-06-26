@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="200" height="80" tilewidth="32" tileheight="32">
- <tileset firstgid="1" source="../../../../../../Program Files/Tiled/examples/desert.tsx"/>
+ <tileset firstgid="1" source="../../../../../../../Program Files/Tiled/examples/desert.tsx"/>
  <layer name="Tile Layer 1" width="200" height="80">
   <data encoding="base64" compression="zlib">
-   eJzt2k2O2kAQgFHWc4gsZpH7HzGLKNLIcYHdruof+z2ppEkEDDT9YcDz/Xq9vo0xxpjGgbtq2eP6gJg+IKYPiOkDYvq4xvcn92b916Gv/qzfc2jpPGvCHsemv57wGKl315ZWvd+sa6Vj0yz3AyIj+9EHq9MH/M/xA2I99mvGOadRw33NsgfsOaqt/Po3431iPk891t/lcUAFfUBMHxDTB8T0ATF9QEwfEFulj9Hn6quHOXmeIKYPiOkDYvqAmD4gpo97893aNZ/Wwrrdg+erjT6ewfPVplcfzq2NZZ3a9OyDcax/myN9ZP0exrH+bfTxDNa/jT6ewfq30cczWP82+ngG698mo4+sy1DH+rfJ6uPT5Tw/Y1Wefxo1PegDYpl9vLusPliR4wfEjvSR8V5wlveTcMYse1QfzEgf/fy6MIyhj3xXOthr4l0fGqqlj3xZfTjGjKePfBn7++z19FFj5j5mOo96VtbxYO+9luNHPyvstdVEnyEqZvTfeMwwlfSRL3vfH+2NfPrI93VgMj+T66OOPvL17EMbtfSRr6qP35vRSD195Nvbr1eODUd6+6p8QA+mj3yZbehjLH3k235u7jXkW7WPmb8318d9rNrHzHp3oY86+sinj/vQR76f+zVz73+6XfLN+P59ddv9mtHF9nZ+/v/2Z/LY8/mi1/ntv88cZ45cl3z6qHN0b0fX3f78rhdq6KPOdt+eeb3fu64e+tNHjb09fLWPd7dNDX3kO/r3INlDPn3k08d96ANi+oCYPiCmD4jpoz+fpdfxr4tR37kYs8L8Aatg650=
+   eJzt2k1uo0AQgFGvc4hZZDH3P+IsRiNFDGVDU9U/8J7UUhLZjt30Z8D4+/V6fRcMWFlFE/rgLqxniOkDYvqAmD4gpg+I6eMan+vdm+0GMX1ATB/sccz41xNeI/Xu2tKqz5t1rbRvmuV5QGRkP/pgdfqA/9l/QKzHem29/jvD4L5mWQPWHNVWfv+b8Tkxn6fu6+/yOqCCPiCmD4jpA2L6gJg+IKYPiK3Sx+hr9ZmDddh2ENMHxPQBMX1ATB8Q08e9+bztmk9zYd7uwfZqo49nsL3a9OrD9baxzFObnn0wjvlvc6SPrP/DOOa/jT6ewfy30cczmP82+ngG899GH89g/ttk9JF1G+qY/zZZfXy6ne0zVuX1p1GjB31ALLOPd7fVByuy/4DYkT4yjgVnOZ6EM2ZZo/pgRvro59eFwRj6yHelg70m3vWhoVr6yJfVh33MePrIl7G+z95PHzVm7mOm66hnZe0P9o617D/6WWGtrSY6h6gYo7/jMcOopI982ecSR3sjnz7yfR0Ymefk+qijj3w9+9BGLX3kq+rj92ZopJ4+8n06hzg7jvT2VfmCHkwf+TLb0MdY+si3PW/uNci3ah8zf26uj/tYtY+Z9e5CH3X0kU8f96GPfD/Xa+ba//S45Jvx+H112/Wa0cX2cX7+ffszeaz5fNH7/Pb3M/uZI/clnz7qHF3b0X23P7/rhRr6qLNdt2fe7/fuq4f+9FFjbw1f7ePdY1NDH/mOfh8ke5BPH/n0cR/6gJg+IKYPiOkDYvroz7n0Ov51MeozF8NYYfwBLi+10w==
   </data>
  </layer>
 </map>

@@ -1,5 +1,5 @@
 application: galacticcourier
-version: 1
+version: 2
 runtime: python27
 api_version: 1
 threadsafe: yes
@@ -11,12 +11,13 @@ handlers:
   
 - url: /css
   static_dir: css
-
+  
+# THIS CAUSES 500 ERROR
 - url: /main
   static_dir: src/main
   
-- url: /thirdpartylibraries
-  static_dir: src/thirdpartylibraries
+- url: /thirdparty
+  static_dir: src/thirdparty
   
 - url: /setup
   static_dir: src/setup
@@ -27,9 +28,8 @@ handlers:
 - url: /classes
   static_dir: src/classes
   
-  
-- url: .*
-  script: main.app
+- url: /.*
+  script: mainhandler.app
 
 libraries:
 - name: webapp2
@@ -40,3 +40,10 @@ libraries:
   
 - name: numpy
   version: latest
+  
+skip_files:
+- ^(.*/)?.*\.json
+- ^(.*/)?.*\.tmx
+- ^(.*/)?.*\.pyc
+- ^\.git
+- ^\.gitignore

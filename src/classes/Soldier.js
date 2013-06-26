@@ -11,7 +11,7 @@
             regY : 46 / 2,
         
             isGrounded : 0,
-            canEmbark : 0, // Set to one when character touches vehicle
+            canEmbark : null, // Set to name of vehicle when boarding is possible
             onTick : tick,
             body : createBody(),
             bodyX : function(){ return this.body.GetPosition().x * SCALE },
@@ -34,7 +34,7 @@
         bodyDef.type = box2d.b2Body.b2_dynamicBody;
         bodyDef.fixedRotation = true; // Prevent any rotation
         bodyDef.userData = "Soldier";
-        bodyDef.position.Set( 900/SCALE, 1518/SCALE); //canvas.height / 2 / SCALE;
+        bodyDef.position.Set(3082/SCALE, 2281/SCALE); //canvas.height / 2 / SCALE;
         var body = world.CreateBody(bodyDef);
         
         // BODY FIXTURE 
