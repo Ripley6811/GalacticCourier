@@ -2,7 +2,7 @@
 
 Test project.
 
-Live web site: https://galacticcourier.appspot.com/gamemain
+Live web site: http://galacticcourier.appspot.com/gamemain
 
 **Objective**: Blast off in the spacecraft and catch up to the space station in orbit. 
 Use the array of thrusters around the ship and your knowledge of physics to land 
